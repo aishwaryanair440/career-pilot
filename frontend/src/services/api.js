@@ -14,9 +14,19 @@ async function getAuthHeaders() {
     'Content-Type': 'application/json'
   }
 
-  const openRouterKey = localStorage.getItem('openRouterApiKey')
-  if (openRouterKey) {
-    headers['X-OpenRouter-Key'] = openRouterKey
+  const aiConfigStr = localStorage.getItem('aiConfig');
+  if (aiConfigStr) {
+    try {
+      const aiConfig = JSON.parse(aiConfigStr);
+      if (aiConfig.provider) headers['X-AI-Provider'] = aiConfig.provider;
+      if (aiConfig.apiKey) headers['X-AI-Key'] = aiConfig.apiKey;
+      if (aiConfig.model) headers['X-AI-Model'] = aiConfig.model;
+    } catch(e) {}
+  } else {
+    const openRouterKey = localStorage.getItem('openRouterApiKey');
+    if (openRouterKey) {
+      headers['X-OpenRouter-Key'] = openRouterKey;
+    }
   }
 
   return headers
@@ -441,25 +451,6 @@ export const aiApi = {
     const response = await fetch(`${API_BASE}/ai/models?provider=${encodeURIComponent(provider)}`, {
       method: 'GET',
       headers
-    })
-    return handleResponse(response)
-  },
-
-  async getConfig() {
-    const headers = await getAuthHeaders()
-    const response = await fetch(`${API_BASE}/ai/config`, {
-      method: 'GET',
-      headers
-    })
-    return handleResponse(response)
-  },
-
-  async updateConfig(data) {
-    const headers = await getAuthHeaders()
-    const response = await fetch(`${API_BASE}/ai/config`, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(data)
     })
     return handleResponse(response)
   }
