@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/anurag3407/career-pilot/compare/v1.16.0...v1.17.0) (2026-05-26)
+
+
+### Features
+
+* **ui:** add skeleton loaders for resume enhancement ([135940d](https://github.com/anurag3407/career-pilot/commit/135940d9fab9c12f380f2e538ef017ef5fd227c8))
+
 # [1.16.0](https://github.com/anurag3407/career-pilot/compare/v1.15.0...v1.16.0) (2026-05-26)
 
 
